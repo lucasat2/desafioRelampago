@@ -24,8 +24,7 @@ function atualizarProbabilidade() {
 
 
 function atualizarParticipantes() {
-    const regexNomeValido = /^[a-zA-Zá-úÁ-ÚãõÃÕêÊéÉíÍóÓúÚçÇ\s]+$/;
-    const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(e => regexNomeValido.test(e));
+    const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(Boolean);
     campoParticipantes.value = entradas.length;
 
     atualizarProbabilidade();
