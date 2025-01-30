@@ -84,3 +84,24 @@ function renderizarSorteados() {
     const sorteados = JSON.parse(localStorage.getItem('sorteados')) || [];
     secaoSorteados.innerHTML = sorteados.map(vencedor => `<li>${vencedor}</li>`).join('');
 }
+
+function resetarSorteio() {
+    campoEntradas.value = '';
+    exibicaoVencedor.textContent = 'O vencedor será exibido aqui!';
+    campoParticipantes.value = 0;
+    exibicaoProbabilidade.textContent = 'Preencha os campos acima para calcular a probabilidade.';
+    localStorage.removeItem('historico');
+    localStorage.removeItem('sorteados');
+    renderizarHistorico();
+    renderizarSorteados();
+}
+
+botaoSortear.addEventListener('click', realizarSorteio);
+botaoResetar.addEventListener('click', resetarSorteio);
+
+campoEntradas.addEventListener('input', atualizarParticipantes);
+
+campoSorteios.addEventListener('input', atualizarSorteios);
+
+renderizarHistorico();
+renderizarSorteados();
