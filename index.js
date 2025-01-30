@@ -29,3 +29,12 @@ function atualizarParticipantes() {
 
     atualizarProbabilidade();
 }
+
+
+function atualizarSorteios() {
+    const sorteios = parseInt(campoSorteios.value, 10);
+    campoSorteios.value = sorteios;
+
+    atualizarProbabilidade();
+}
+
