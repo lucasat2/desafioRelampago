@@ -38,3 +38,37 @@ function atualizarSorteios() {
     atualizarProbabilidade();
 }
 
+function realizarSorteio() {
+    const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(Boolean);
+    const sorteiosRestantes = parseInt(campoSorteios.value, 10);
+
+    if (entradas.length === 0) {
+        alert('Por favor, insira nomes ou números para o sorteio.');
+        return;
+    }
+
+    if (sorteiosRestantes <= 0) {
+        alert('Não há mais sorteios restantes.');
+        return;
+    }
+
+    const indiceAleatorio = Math.floor(Math.random() * entradas.length);
+    const vencedor = entradas[indiceAleatorio];
+
+    entradas.splice(indiceAleatorio, 1);
+
+    const sorteados = JSON.parse(localStorage.getItem('sorteados')) || [];
+    sorteados.push(vencedor);
+    localStorage.setItem('sorteados', JSON.stringify(sorteados));
+    renderizarSorteados();
+
+    campoEntradas.value = entradas.join(', ');
+    exibicaoVencedor.textContent = `Vencedor: ${vencedor}`;
+
+    campoParticipantes.value = entradas.length;
+
+    campoSorteios.value = sorteiosRestantes - 1;
+    atualizarProbabilidade();
+
+    atualizarHistorico(vencedor);
+}
