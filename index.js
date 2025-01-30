@@ -78,3 +78,9 @@ function renderizarHistorico() {
     const historico = JSON.parse(localStorage.getItem('historico')) || [];
     secaoHistorico.innerHTML = historico.map(vencedor => `<li>${vencedor}</li>`).join('');
 }
+
+
+function renderizarSorteados() {
+    const sorteados = JSON.parse(localStorage.getItem('sorteados')) || [];
+    secaoSorteados.innerHTML = sorteados.map(vencedor => `<li>${vencedor}</li>`).join('');
+}
