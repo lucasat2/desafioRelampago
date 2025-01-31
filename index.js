@@ -41,11 +41,15 @@ function atualizarParticipantes() {
 }
 
 function atualizarSorteios() {
-    const sorteios = parseInt(campoSorteios.value, 10);
+    let sorteios = parseInt(campoSorteios.value, 10);
+    if (sorteios < 1) {
+        sorteios = 1;
+    }
     campoSorteios.value = sorteios;
 
     atualizarProbabilidade();
 }
+
 
 function realizarSorteio() {
     const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(Boolean);
