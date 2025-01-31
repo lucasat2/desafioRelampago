@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <title>Sorteador Alpha</title>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Sorteador Online</h1>
-
-        <label for="entradas">Insira os nomes ou números (separados por vírgula):</label>
-        <textarea id="entradas" placeholder="Ex: Ana, João, Pedro"></textarea>
-        
-        <button id="botaoSortear">Sortear</button>
-        <button id="botaoResetar">Resetar</button>
-
-        <!-- 
-        para testar
-        <div id="roleta" class="roleta">
-            <div id="seta" class="seta"></div>
-            <div id="roletaItens"></div>
+    <header>
+        <div class="logo">
+            <h1>Alpha Edtech</h1>
         </div>
-           -->
+    </header>
 
-        <h2 id="vencedor">O vencedor será exibido aqui!</h2>
-        
+    <div class="container">
+        <h2>Sorteador Alpha</h2>
+
+        <div class="input-group">
+            <label for="entradas">Insira os nomes ou números (separados por vírgula):</label>
+            <textarea id="entradas" placeholder="Ex: Albert, Lucas, Wanessa"></textarea>
+        </div>
+
+        <div class="button-group">
+            <button id="botaoSortear">Sortear</button>
+            <button id="botaoResetar">Resetar</button>
+        </div>
+
+        <div class="resultado">
+            <h3 id="vencedor">O vencedor será exibido aqui!</h3>
+        </div>
+
         <div class="secao-probabilidade">
             <h3>Probabilidades</h3>
-            <label for="participantes">Total de Participantes:</label>
-            <input type="number" id="participantes" value="0" readonly>
-            
-            <label for="sorteios">Número de Sorteios:</label>
-            <input type="number" id="sorteios" value="1">
-            
+            <div class="input-group">
+                <label for="participantes">Total de Participantes:</label>
+                <input type="number" id="participantes" value="0" readonly>
+            </div>
+            <div class="input-group">
+                <label for="sorteios">Número de Sorteios:</label>
+                <input type="number" id="sorteios" value="1">
+            </div>
             <p id="probabilidade">Preencha os campos acima para calcular a probabilidade.</p>
         </div>
 
@@ -41,14 +50,14 @@
             <h3>Sorteados</h3>
             <ul id="sorteados"></ul>
         </div>
-        
-        
-        <div id="secao-historico">
-            <h3>Histórico de Sorteios</h3>
+
+        <div class="secao-historico">
             <ul id="historico"></ul>
         </div>
+        
     </div>
 
     <script src="index.js"></script>
 </body>
+
 </html>

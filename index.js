@@ -5,8 +5,23 @@ const exibicaoVencedor = document.getElementById('vencedor');
 const campoParticipantes = document.getElementById('participantes');
 const campoSorteios = document.getElementById('sorteios');
 const exibicaoProbabilidade = document.getElementById('probabilidade');
-const secaoHistorico = document.getElementById('historico');
 const secaoSorteados = document.getElementById('sorteados');
+
+const containerHistorico = document.querySelector(".secao-historico");
+const listaHistorico = document.getElementById('historico');
+
+const botaoHistorico = document.createElement("button");
+botaoHistorico.textContent = "Mostrar Histórico";
+botaoHistorico.id = "botaoHistorico";
+containerHistorico.prepend(botaoHistorico);
+
+let historicoVisivel = false;
+
+botaoHistorico.addEventListener("click", () => {
+    historicoVisivel = !historicoVisivel;
+    listaHistorico.style.display = historicoVisivel ? "block" : "none";
+    botaoHistorico.textContent = historicoVisivel ? "Ocultar Histórico" : "Mostrar Histórico";
+});
 
 function calcularProbabilidade(participantes, sorteios) {
     if (participantes <= 0 || sorteios <= 0) return 0;
@@ -22,8 +37,6 @@ function atualizarProbabilidade() {
         `A probabilidade de ganhar é ${probabilidade.toFixed(2)}%`;
 }
 
-
-
 function atualizarParticipantes() {
     const regexNomeValido = /^[a-zA-Zá-úÁ-ÚãõÃÕêÊéÉíÍóÓúÚçÇ\s]+$/;
     const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(e => regexNomeValido.test(e));
@@ -32,13 +45,14 @@ function atualizarParticipantes() {
     atualizarProbabilidade();
 }
 
-
 function atualizarSorteios() {
     const sorteios = parseInt(campoSorteios.value, 10);
     campoSorteios.value = sorteios;
 
     atualizarProbabilidade();
 }
+
+let sorteados = [];
 
 function realizarSorteio() {
     const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(Boolean);
@@ -59,31 +73,34 @@ function realizarSorteio() {
 
     entradas.splice(indiceAleatorio, 1);
 
-    const sorteados = JSON.parse(localStorage.getItem('sorteados')) || [];
     sorteados.push(vencedor);
-    localStorage.setItem('sorteados', JSON.stringify(sorteados));
     renderizarSorteados();
 
     campoEntradas.value = entradas.join(', ');
     exibicaoVencedor.textContent = `Vencedor: ${vencedor}`;
 
     campoParticipantes.value = entradas.length;
-
     campoSorteios.value = sorteiosRestantes - 1;
     atualizarProbabilidade();
 
     atualizarHistorico(vencedor);
 }
 
+function atualizarHistorico(vencedor) {
+    const historico = JSON.parse(localStorage.getItem('historico')) || [];
+    historico.push(vencedor);
+    localStorage.setItem('historico', JSON.stringify(historico));
+    renderizarHistorico(); 
+}
 
 function renderizarHistorico() {
     const historico = JSON.parse(localStorage.getItem('historico')) || [];
-    secaoHistorico.innerHTML = historico.map(vencedor => `<li>${vencedor}</li>`).join('');
+    listaHistorico.innerHTML = historico.map(vencedor => `<li>${vencedor}</li>`).join('');
+    
+    listaHistorico.style.display = "none";
 }
 
-
 function renderizarSorteados() {
-    const sorteados = JSON.parse(localStorage.getItem('sorteados')) || [];
     secaoSorteados.innerHTML = sorteados.map(vencedor => `<li>${vencedor}</li>`).join('');
 }
 
@@ -102,8 +119,6 @@ botaoSortear.addEventListener('click', realizarSorteio);
 botaoResetar.addEventListener('click', resetarSorteio);
 
 campoEntradas.addEventListener('input', atualizarParticipantes);
-
 campoSorteios.addEventListener('input', atualizarSorteios);
 
 renderizarHistorico();
-renderizarSorteados();
