@@ -13,8 +13,18 @@ body {
 
 header {
     background-color: #000000;
-    padding: 20px;
+    padding: 0;
     text-align: center;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.logo img {
+    height: 100px;
+    width: auto;
 }
 
 .logo h1 {
