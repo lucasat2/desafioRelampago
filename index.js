@@ -33,8 +33,8 @@ function atualizarProbabilidade() {
 }
 
 function atualizarParticipantes() {
-    const regexNomeValido = /^[a-zA-Zá-úÁ-ÚãõÃÕêÊéÉíÍóÓúÚçÇ\s]+$/;
-    const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(e => regexNomeValido.test(e));
+    const regexEntradaValida = /^[a-zA-Zá-úÁ-ÚãõÃÕêÊéÉíÍóÓúÚçÇ0-9\s]+$/;
+    const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(e => regexEntradaValida.test(e));
     campoParticipantes.value = entradas.length;
 
     atualizarProbabilidade();
@@ -49,7 +49,6 @@ function atualizarSorteios() {
 
     atualizarProbabilidade();
 }
-
 
 function realizarSorteio() {
     const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(Boolean);
@@ -124,7 +123,5 @@ botaoHistorico.addEventListener("click", alternarHistorico);
 
 campoEntradas.addEventListener('input', atualizarParticipantes);
 campoSorteios.addEventListener('input', atualizarSorteios);
-
-
 
 renderizarHistorico();
