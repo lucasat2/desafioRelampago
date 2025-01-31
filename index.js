@@ -16,12 +16,7 @@ botaoHistorico.id = "botaoHistorico";
 containerHistorico.prepend(botaoHistorico);
 
 let historicoVisivel = false;
-
-botaoHistorico.addEventListener("click", () => {
-    historicoVisivel = !historicoVisivel;
-    listaHistorico.style.display = historicoVisivel ? "block" : "none";
-    botaoHistorico.textContent = historicoVisivel ? "Ocultar Histórico" : "Mostrar Histórico";
-});
+let sorteados = [];
 
 function calcularProbabilidade(participantes, sorteios) {
     if (participantes <= 0 || sorteios <= 0) return 0;
@@ -51,8 +46,6 @@ function atualizarSorteios() {
 
     atualizarProbabilidade();
 }
-
-let sorteados = [];
 
 function realizarSorteio() {
     const entradas = campoEntradas.value.split(',').map(e => e.trim()).filter(Boolean);
@@ -100,6 +93,12 @@ function renderizarHistorico() {
     listaHistorico.style.display = "none";
 }
 
+function alternarHistorico() {
+    historicoVisivel = !historicoVisivel;
+    listaHistorico.style.display = historicoVisivel ? "block" : "none";
+    botaoHistorico.textContent = historicoVisivel ? "Ocultar Histórico" : "Mostrar Histórico";
+}
+
 function renderizarSorteados() {
     secaoSorteados.innerHTML = sorteados.map(vencedor => `<li>${vencedor}</li>`).join('');
 }
@@ -117,8 +116,11 @@ function resetarSorteio() {
 
 botaoSortear.addEventListener('click', realizarSorteio);
 botaoResetar.addEventListener('click', resetarSorteio);
+botaoHistorico.addEventListener("click", alternarHistorico);
 
 campoEntradas.addEventListener('input', atualizarParticipantes);
 campoSorteios.addEventListener('input', atualizarSorteios);
+
+
 
 renderizarHistorico();
